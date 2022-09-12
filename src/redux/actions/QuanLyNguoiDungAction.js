@@ -1,6 +1,6 @@
 import { quanLyNguoiDungService } from "../../services/QuanLyNguoiDung"
 import { DANG_NHAP_ACTION } from "./types/QuanLyNguoiDungType";
-
+import { history } from "../../App";
 
 
 
@@ -20,8 +20,10 @@ export const dangNhapAction = (thongTinDangNhap) => {
                     thongTinDangNhap: result.data.content
                 })
             }
-
-
+            // chuyển hương đăng nhập về trang trước đso
+            
+            history.goBack();
+ 
             console.log('result', result);
 
         } catch (error) {

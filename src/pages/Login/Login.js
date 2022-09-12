@@ -41,7 +41,7 @@ export default function Login(props) {
                             </g>
                         </svg>
                     </div>
-                    <div className="text-2xl text-indigo-800 tracking-wide ml-2 font-semibold">CYBERLEARN</div>
+                    <div className="text-2xl text-indigo-800 tracking-wide ml-2 font-semibold">CGV</div>
                 </div>
             </div>
             <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
