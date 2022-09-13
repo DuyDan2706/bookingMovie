@@ -84,6 +84,7 @@ const MultipleRowSlick = (props) => {
         {renderFilms()}
       </Slider>
     </div>
+  
   );
 }
 

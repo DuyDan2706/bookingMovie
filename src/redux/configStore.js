@@ -4,13 +4,15 @@ import { CarouselReducer } from './reducers/CarouselReducer';
 import { QuanLyNguoiDungReducer } from './reducers/QuanLyNguoiDungReducer';
 import { QuanLyPhimReducer } from './reducers/QuanLyPhimReducer';
 import { QuanLyRapReducer } from './reducers/QuanLyRapReducer';
+import { QuanLyDatVeReducer } from './reducers/QuanLyDatVeReducer';
 
 const rootReducer = combineReducers({
     //state ứng dụng
     CarouselReducer,
     QuanLyPhimReducer,
     QuanLyRapReducer,
-    QuanLyNguoiDungReducer
+    QuanLyNguoiDungReducer,
+    QuanLyDatVeReducer
 });
 
 
