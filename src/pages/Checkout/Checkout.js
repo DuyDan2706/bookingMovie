@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction';
 import style from './Checkout.module.css'
+import {QuanLyDatVeReducer} from '../../redux/reducers/QuanLyDatVeReducer'
+import{CloseOutlined} from'@ant-design/icons'
+import './Checkout.css'
+
 export default function Checkout(props) {
   
     const {userLogin} = useSelector( state => state.QuanLyNguoiDungReducer)
@@ -19,6 +23,35 @@ export default function Checkout(props) {
     },[])
    // bóc tách dữ liệu ra để 
      const{thongTinPhim,danhSachGhe}=chiTietPhongVe;
+
+
+
+// render ra ghế viết vòng lặp map  
+ const renderSeats = () => {
+    return danhSachGhe?.map((ghe,index)=>{
+
+        // let ClassGhevip = ghe.loaiGhe === 'Vip' ?'gheVip':'';
+        let classGheDaDat = ghe.daDat === true ? 'gheDaDat' :'';
+         return <Fragment key= {index}>
+             {/* <button className={`${style['ghe']}`} key={index}>{ghe.stt}</button> */}
+             {/* <button disabled={ ghe.daDat} className={`ghe ${ClassGhevip} ${classGheDaDat} `} key={index}> */}
+                
+             <button disabled={ ghe.daDat} className={`ghe  ${classGheDaDat} `} key={index}>
+                
+                
+                {ghe.daDat ?<CloseOutlined style={{marginBottom:2}}/> :ghe.stt}
+             
+             </button>
+             {/* {ghe.loaiGhe === 'Vip'?  <button className={`${style['ghe']} ${style['gheVip']}`} key={index}>{ghe.stt}</button>: <button className={`${style['ghe']}`} key={index}>{ghe.stt}</button>} */}
+            {(index +1)%16 ===0 ? <br/> : ''}
+         </Fragment>
+         
+     
+    })
+ }
+
+
+
     return (
         <div className=" min-h-screen mt-5" >
             <div className="grid grid-cols-12">
@@ -31,15 +64,62 @@ export default function Checkout(props) {
                  <div  className={`${style['trapezoid']} text-center `}>
                    <h3 className="mt-3 text-black"> màn hình</h3>
                  </div>
+                <div>
+                    {renderSeats()}
                  </div>
+                 </div>
+                 
                 </div>
                 <div className="col-span-3">
                     <h3 className="text-green-400 text-center text-4xl"> </h3>
                     <hr />
                     <h3 className="text-xl mt-2">{thongTinPhim?.tenPhim}</h3>
-                    <p>{thongTinPhim?.tenCumRap} - {thongTinPhim?.tenRap} </p>
+                    <hr/>
+                    <div className="flex flex-row my-5">
+                        <div className="w-2/3">
+                            <span className="text-red-400 text-lg">Ngày giờ chiếu</span>
+
+                
+                        </div>
+                        <div className="text-center col-span-1">
+                            <p className="text-green-800 text-lg">{thongTinPhim?.ngayChieu} - {thongTinPhim?.gioChieu}
+                            </p>
+                        </div>
+                    
+                    </div>
+                    <hr/>  
+                    <div className="flex flex-row my-5">
+                        <div className="w-3/5">
+                            <span className="text-red-400 text-lg">Cụm Rạp</span>
+
+          
+                        </div>
+                        <div className="text-center col-span-1">
+                            <p className="text-green-800 text-lg">{thongTinPhim?.tenCumRap}
+                            </p>
+                        </div>
+                        
+                    </div>  
+                  <hr/>
+                    <div className="flex flex-row my-5">
+                        <div className="w-4/5">
+                            <span className="text-red-400 text-lg">Tên Rạp</span>
+
+                
+                        </div>
+                        <div className="text-center col-span-1">
+                            <p className="text-green-800 text-lg">{thongTinPhim?.tenRap}
+                            </p>
+                        </div>
+                        
+                    </div>  
+                  <hr/>
+
+
+ 
+                    {/* <p>{thongTinPhim?.tenCumRap} - {thongTinPhim?.tenRap} </p> */}
                     {/* <p>{thongTinPhim?.diaChi}</p> có thể dùng ? nó vẫn chạy nha có 2 cách 1 cách khao báo 1 cách dùng ? */}
-                    <p>{thongTinPhim?.ngayChieu} - {thongTinPhim?.gioChieu}</p>
+                    {/* <p>{thongTinPhim?.ngayChieu} - {thongTinPhim?.gioChieu}</p> */}
                     <hr />
                     <div className="flex flex-row my-5">
                         <div className="w-4/5">
@@ -63,6 +143,19 @@ export default function Checkout(props) {
                         {userLogin.soDT}
                     </div>
                     <hr/>
+                    <div className="flex flex-row my-5">
+                        <div className="w-4/5">
+                            <span className="text-red-400 text-lg"> Chọn Combo</span>
+
+                
+                        </div>
+                        <div className="text-right col-span-1">
+                            <span className="text-green-800 text-lg">0đ
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <hr/>
                     <div className="my-5">
                     <div>
   <label htmlFor="ma_giam_gia" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mã giảm giá</label>
@@ -74,29 +167,18 @@ export default function Checkout(props) {
                     <div className="my-5 " >
                     <p>Phương thức thanh toán</p> <br />
                      <div class="radio-selection">
-                        <div class ="radio__item flex pointẻ flex-start align-items-center">
-                            <input class ="radio__item--input" type="radio" name="howtopay" id="ATM" value="ATM"></input>
-                            <label class="radio__item--label label_ATM flex justify-items-start items-center" for="ATM">
-                                <div class="pay__figure">
-                                   <img src ="https://kdq-react-movie-app.surge.sh/images/ATM.png" className="rounded-full w-full" style={{width:50}}  alt="ATM"/>
-
-                                </div>
-                                <p class="pay__text text-center ">thẻ ATM nội địa </p>
-                            </label>
-                        </div>
-                    
-
+                       
                    
-                        <div class ="radio__item flex pointẻ flex-start align-items-center">
+                        {/* <div class ="radio__item flex pointẻ flex-start align-items-center">
                             <input class ="radio__item--input" type="radio" name="howtopay" id="visa" value="visa"></input>
                             <label class="radio__item--label label_visa flex justify-items-start items-center   " style={{marginBottom:10}} for="ATM">
                                 <div class="pay__figure ">
-                                   <img src ="https://kdq-react-movie-app.surge.sh/images/visa_mastercard.png" className="rounded-full w-full " style={{width:50}} alt="visa"/>
+                                   <img src ="https://kdq-react-movie-app.surge.sh/images/cash.png" className="rounded-full w-full " style={{width:50}} alt="visa"/>
 
                                 </div>
-                                <p class="pay__text text-center ml-2">Visa, Master, JCB </p>
+                                <p class="pay__text text-center ml-2">Tiền mặt </p>
                             </label>
-                        </div>
+                        </div> */}
                         <div class ="radio__item flex pointẻ flex-start align-items-center" >
                             <input class ="radio__item--input" type="radio" name="howtopay" id="MOMO" value="MOMO"></input>
                             <label class="radio__item--label label_MOMO flex justify-items-start items-center" for="MOMO">

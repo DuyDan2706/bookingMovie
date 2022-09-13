@@ -7,6 +7,7 @@ const stateDefault = {
 //    chiTietPhongVe:{}
 chiTietPhongVe: new ThongTinLichChieu()
 
+
 }
 export const QuanLyDatVeReducer = (state=stateDefault,action)=>{
     switch (action.type) {
