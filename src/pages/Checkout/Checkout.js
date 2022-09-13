@@ -17,8 +17,8 @@ export default function Checkout(props) {
 
          dispatch(action)
     },[])
-
-
+   // bóc tách dữ liệu ra để 
+     const{thongTinPhim,danhSachGhe}=chiTietPhongVe;
     return (
         <div className=" min-h-screen mt-5" >
             <div className="grid grid-cols-12">
@@ -36,13 +36,14 @@ export default function Checkout(props) {
                 <div className="col-span-3">
                     <h3 className="text-green-400 text-center text-4xl"> </h3>
                     <hr />
-                    <h3 className="text-xl mt-2">Lật mặt 48h</h3>
-                    <p>Địa điểm: CGV: vincom:3/2</p>
-                    <p>Ngày chiếu:13/9/2022 -12:30 RẠP 5</p>
+                    <h3 className="text-xl mt-2">{thongTinPhim?.tenPhim}</h3>
+                    <p>{thongTinPhim?.tenCumRap} - {thongTinPhim?.tenRap} </p>
+                    {/* <p>{thongTinPhim?.diaChi}</p> có thể dùng ? nó vẫn chạy nha có 2 cách 1 cách khao báo 1 cách dùng ? */}
+                    <p>{thongTinPhim?.ngayChieu} - {thongTinPhim?.gioChieu}</p>
                     <hr />
                     <div className="flex flex-row my-5">
                         <div className="w-4/5">
-                            <span className="text-red-400 text-lg">Ghế</span>
+                            <span className="text-red-400 text-lg"> Vui Lòng Chọ Ghế Ghế</span>
 
                         
                         </div>
@@ -70,9 +71,43 @@ export default function Checkout(props) {
                         <br/>
                         <hr />
                     </div>
-                    <div className="my-5">
-                    <i>Phương thức thanh toán</i> <br />
+                    <div className="my-5 " >
+                    <p>Phương thức thanh toán</p> <br />
+                     <div class="radio-selection">
+                        <div class ="radio__item flex pointẻ flex-start align-items-center">
+                            <input class ="radio__item--input" type="radio" name="howtopay" id="ATM" value="ATM"></input>
+                            <label class="radio__item--label label_ATM flex justify-items-start items-center" for="ATM">
+                                <div class="pay__figure">
+                                   <img src ="https://kdq-react-movie-app.surge.sh/images/ATM.png" className="rounded-full w-full" style={{width:50}}  alt="ATM"/>
+
+                                </div>
+                                <p class="pay__text text-center ">thẻ ATM nội địa </p>
+                            </label>
+                        </div>
                     
+
+                   
+                        <div class ="radio__item flex pointẻ flex-start align-items-center">
+                            <input class ="radio__item--input" type="radio" name="howtopay" id="visa" value="visa"></input>
+                            <label class="radio__item--label label_visa flex justify-items-start items-center   " style={{marginBottom:10}} for="ATM">
+                                <div class="pay__figure ">
+                                   <img src ="https://kdq-react-movie-app.surge.sh/images/visa_mastercard.png" className="rounded-full w-full " style={{width:50}} alt="visa"/>
+
+                                </div>
+                                <p class="pay__text text-center ml-2">Visa, Master, JCB </p>
+                            </label>
+                        </div>
+                        <div class ="radio__item flex pointẻ flex-start align-items-center" >
+                            <input class ="radio__item--input" type="radio" name="howtopay" id="MOMO" value="MOMO"></input>
+                            <label class="radio__item--label label_MOMO flex justify-items-start items-center" for="MOMO">
+                                <div class="pay__figure">
+                                   <img src ="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" className="rounded-full w-full" style={{width:50}}  alt="MOMO"/>
+                                  
+                                </div>
+                                <p class="pay__text text-center ">momo </p>
+                            </label>
+                            </div>
+                     </div>
 
                     </div>
                     <hr/>
