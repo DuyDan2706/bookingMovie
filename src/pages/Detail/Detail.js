@@ -46,8 +46,8 @@ export default function Detail(props) {
                             <img className="col-span-1" src={filmDetail.hinhAnh} style={{ width: '100%', height: 300 }} alt="123" />
                             <div className="col-span-2 ml-5" style={{ marginTop: '25%' }}>
                                 <p className="text-sm">Ngày chiếu: {moment(filmDetail.ngayKhoiChieu).format('DD.MM.YYYY')}</p>
-                                <p className="text-4xl leading-3">{filmDetail.tenPhim}</p>
-                                <p>{filmDetail.moTa}</p>
+                                <p className="text-xl leading-9">{filmDetail.tenPhim}</p>
+                                {/* <p>{filmDetail.moTa}</p> */}
                             </div>
                         </div>
 
@@ -116,7 +116,41 @@ export default function Detail(props) {
                             </div>
                         </TabPane>
                         <TabPane tab="Thông tin" key="2" style={{minHeight:300}}>
-                            Thông tin
+                           <section class="movie__info pt-4">
+                            <div class ="myContainer row ">
+                                <div class="col-12 col-md-6  " style={{maxWidth:'50%'}} >
+                                    <div class="rowInfo mb-4" style={{display:'flex'}}>
+                                        <div class="titleInfo">Ngày công chiếu</div>
+                                        <div class="contentInfo">17/05/2022</div>
+                                    </div>
+                                    <div class="rowInfo mb-4" style={{display:'flex'}}>
+                                        <div class="titleInfo">Đạo diễn</div>
+                                        <div class="contentInfo">Đan</div>
+                                    </div>
+                                    <div class="rowInfo mb-4" style={{display:'flex'}}>
+                                        <div class="titleInfo">Thể Loại </div>
+                                        <div class="contentInfo">Thích Hóng Dramma</div>
+                                    </div>
+                                    <div class="rowInfo mb-4" style={{display:'flex'}}>
+                                        <div class="titleInfo">Định Dạng </div>
+                                        <div class="contentInfo">2D</div>
+                                    </div>
+                                    <div class="rowInfo mb-4" style={{display:'flex'}}>
+                                        <div class="titleInfo">Ngôn ngữ </div>
+                                        <div class="contentInfo">Việt</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6  "style={{maxWidth:'50%'}} >
+                                    <div class="rowInfo mb-4" style={{display:'flex'}}>
+                                        <div class="titleInfo">Nội dung</div>
+                                        <p class ="destion contentInfo">
+                                        Một biệt đội được phái vào rừng sâu để tìm tài liệu tuyệt mật và những người đồng đội mất tích. 
+                                        </p>
+                                    </div>
+                                    </div>
+                            </div>
+
+                           </section>
                     </TabPane>
                         <TabPane tab="Đánh giá" key="3" style={{minHeight:300}}>
                             Đánh giá

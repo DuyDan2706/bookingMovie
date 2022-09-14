@@ -5,12 +5,13 @@ import style from './Checkout.module.css'
 import {QuanLyDatVeReducer} from '../../redux/reducers/QuanLyDatVeReducer'
 import{CloseOutlined} from'@ant-design/icons'
 import './Checkout.css'
-
+import _ from 'lodash';
+import {DAT_VE} from '../../redux/actions/types/QuanLyDatVeType'
 export default function Checkout(props) {
   
     const {userLogin} = useSelector( state => state.QuanLyNguoiDungReducer)
     //lấy thông tin đặt vé 
-    const {chiTietPhongVe}= useSelector(state=>state.QuanLyDatVeReducer);
+    const {chiTietPhongVe,danhSachGheDangDat}= useSelector(state=>state.QuanLyDatVeReducer);
     console.log({chiTietPhongVe})
 
    const dispatch =useDispatch();
@@ -30,13 +31,31 @@ export default function Checkout(props) {
  const renderSeats = () => {
     return danhSachGhe?.map((ghe,index)=>{
 
-        // let ClassGhevip = ghe.loaiGhe === 'Vip' ?'gheVip':'';
+        let ClassGhevip = ghe.loaiGhe === 'Vip' ?'gheVip':'';
         let classGheDaDat = ghe.daDat === true ? 'gheDaDat' :'';
+        let classGheDangDat ='';
+        // kiểm tra  từng ghế render xem có trong  mảng ghê đang đặt hay không 
+    let indexGheDD =danhSachGheDangDat.findIndex(gheDD =>gheDD.maGhe ===ghe.maGhe);
+
+      if(indexGheDD !=-1){
+        classGheDaDat ='gheDangDat'
+      }
+  
+
+
+
+
          return <Fragment key= {index}>
              {/* <button className={`${style['ghe']}`} key={index}>{ghe.stt}</button> */}
-             {/* <button disabled={ ghe.daDat} className={`ghe ${ClassGhevip} ${classGheDaDat} `} key={index}> */}
+             
+             <button onClick={()=>{
+                dispatch ({
+                    type:'DAT_VE',
+                    gheDuocChon:ghe
+                })
+             }} disabled={ ghe.daDat} className={`ghe ${ClassGhevip} ${classGheDaDat} ${classGheDangDat} text-center `} key={index}>
                 
-             <button disabled={ ghe.daDat} className={`ghe  ${classGheDaDat} `} key={index}>
+             {/* <button disabled={ ghe.daDat} className={`ghe  ${classGheDaDat} `} key={index}> */}
                 
                 
                 {ghe.daDat ?<CloseOutlined style={{marginBottom:2}}/> :ghe.stt}
@@ -71,7 +90,10 @@ export default function Checkout(props) {
                  
                 </div>
                 <div className="col-span-3">
-                    <h3 className="text-green-400 text-center text-4xl"> </h3>
+                    {/* tổng tiền */}
+                    <h3 className="text-green-400 text-center text-4xl">   {danhSachGheDangDat.reduce((tongTien, ghe, index) => {
+                                    return tongTien += ghe.giaVe;
+                                },0).toLocaleString()} đ </h3>
                     <hr />
                     <h3 className="text-xl mt-2">{thongTinPhim?.tenPhim}</h3>
                     <hr/>
@@ -123,12 +145,18 @@ export default function Checkout(props) {
                     <hr />
                     <div className="flex flex-row my-5">
                         <div className="w-4/5">
-                            <span className="text-red-400 text-lg"> Vui Lòng Chọ Ghế Ghế</span>
+                            <span className="text-red-400 text-lg">Chọn Ghế </span>
+                            {_.sortBy(danhSachGheDangDat, ['stt']).map((gheDD, index) => {
+                                return <span className="text-green-500 text-xl"> {gheDD.stt}</span> 
+                            })}
 
                         
                         </div>
                         <div className="text-right col-span-1">
-                            <span className="text-green-800 text-lg">0đ
+                            <span className="text-green-800 text-lg">
+                            {danhSachGheDangDat.reduce((tongTien, ghe, index) => {
+                                    return tongTien += ghe.giaVe;
+                                },0).toLocaleString()}
                             </span>
                         </div>
                     </div>
