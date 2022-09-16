@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction';
 import style from './Checkout.module.css'
 import { QuanLyDatVeReducer } from '../../redux/reducers/QuanLyDatVeReducer'
-import { CloseOutlined,UserOutlined,CheckOutlined } from '@ant-design/icons'
+import { CloseOutlined, UserOutlined, CheckOutlined } from '@ant-design/icons'
 import './Checkout.css'
 import _ from 'lodash';
 import { DAT_VE } from '../../redux/actions/types/QuanLyDatVeType'
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
-export default function Checkout(props) {
+import { Tabs } from 'antd';
+import moment from 'moment';
+import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiDungAction';
+function Checkout(props) {
 
-    const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer)
+    const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer);
     //lấy thông tin đặt vé 
     const { chiTietPhongVe, danhSachGheDangDat } = useSelector(state => state.QuanLyDatVeReducer);
     console.log({ chiTietPhongVe })
@@ -40,10 +43,10 @@ export default function Checkout(props) {
             let indexGheDD = danhSachGheDangDat.findIndex(gheDD => gheDD.maGhe === ghe.maGhe);
 
             //check hinhf dda dat
-             let classgheDaDuocDat ='';
-             if(userLogin.taiKhoan ===ghe.taiKhoanNguoiDat){
-                classgheDaDuocDat ='gheDaDuocDat';
-             }
+            let classgheDaDuocDat = '';
+            if (userLogin.taiKhoan === ghe.taiKhoanNguoiDat) {
+                classgheDaDuocDat = 'gheDaDuocDat';
+            }
 
             if (indexGheDD != -1) {
                 classGheDaDat = 'gheDangDat'
@@ -66,7 +69,7 @@ export default function Checkout(props) {
                     {/* <button disabled={ ghe.daDat} className={`ghe  ${classGheDaDat} `} key={index}> */}
 
 
-                    {ghe.daDat ? classgheDaDuocDat!= ''? <UserOutlined style={{ marginBottom: 2,fontWeight:'bold' }} /> : <CloseOutlined style={{ marginBottom: 2,fontWeight:'bold' }} /> : ghe.stt}
+                    {ghe.daDat ? classgheDaDuocDat != '' ? <UserOutlined style={{ marginBottom: 2, fontWeight: 'bold' }} /> : <CloseOutlined style={{ marginBottom: 2, fontWeight: 'bold' }} /> : ghe.stt}
 
                 </button>
                 {/* {ghe.loaiGhe === 'Vip'?  <button className={`${style['ghe']} ${style['gheVip']}`} key={index}>{ghe.stt}</button>: <button className={`${style['ghe']}`} key={index}>{ghe.stt}</button>} */}
@@ -96,14 +99,14 @@ export default function Checkout(props) {
                         </div>
                     </div>
                     <div className="mt-5 flex justify-center">
-                         <table class=" divide-y divide-gray-200 w-2/3">
+                        <table class=" divide-y divide-gray-200 w-2/3">
                             <thead class="bg-gray-50 p-5">
                                 <tr>
-                                   <th>Ghế chưa đặt</th> 
-                                   <th>Ghế đang  đặt</th> 
-                                   <th>Ghế Vip</th> 
-                                   <th>Ghế đã được đặt</th> 
-                                   <th>Ghế mình mình đặt</th> 
+                                    <th>Ghế chưa đặt</th>
+                                    <th>Ghế đang  đặt</th>
+                                    <th>Ghế Vip</th>
+                                    <th>Ghế đã được đặt</th>
+                                    <th>Ghế mình mình đặt</th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -117,7 +120,7 @@ export default function Checkout(props) {
 
                                 </tr>
                             </tbody>
-                         </table>
+                        </table>
 
                     </div>
 
@@ -255,7 +258,7 @@ export default function Checkout(props) {
                     </div>
                     <hr />
                     <div className="mb-0 h-full flex flex-col items-center" style={{ marginBottom: 0 }}>
-                    <div onClick={() => {
+                        <div onClick={() => {
                             const thongTinDatVe = new ThongTinDatVe();
                             thongTinDatVe.maLichChieu = props.match.params.id;
                             thongTinDatVe.danhSachVe = danhSachGheDangDat;
@@ -272,4 +275,80 @@ export default function Checkout(props) {
             </div>
         </div>
     )
+}
+
+
+const { TabPane } = Tabs
+export default function (props) {
+
+
+    return <div className="p-5">
+        <Tabs defaultActiveKey="1">
+            <Tabs.TabPane tab=" 01 CHỌN GHẾ & THANH TOÁN" key="1">
+                <Checkout {...props} />
+            </Tabs.TabPane>
+            <Tabs.TabPane tab=" 02 KẾT QUẢ ĐẶT VÉ" key="2">
+                <KetQuaDatVe {...props} />
+            </Tabs.TabPane>
+
+        </Tabs>
+
+    </div>
+
+}
+function KetQuaDatVe(props) {
+const dispatch =useDispatch();
+    const{thongTinNguoiDung} = useSelector(state => state.QuanLyNguoiDungReducer);
+    const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer);
+ 
+    useEffect(()=>{
+        const action =layThongTinNguoiDungAction()
+        dispatch(action)
+    },[])
+
+  console.log('thongTinNguoiDung',thongTinNguoiDung)
+  
+  const renderTickeTItem =function (){
+   
+     return thongTinNguoiDung.thongTinDatVe?.map((ticket,index)=>{
+        const seats =_.first(ticket.danhSachGhe);
+       return <div className="p-2 lg:w-1/3 md:w-1/2 w-full" key={index}>
+       <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+           <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src={ticket.hinhAnh} />
+           <div className="flex-grow">
+               <h2 className="text-gray-900 title-font font-medium">{ticket.tenPhim}</h2>
+               <p className="text-gray-500">{ticket.tenHeThongRap} </p>
+               <p className="text-gray-500">Ngày Chiếu :{moment(ticket.ngayDat).format('hh:mm A')}- Giờ chiếu{moment(ticket.ngayDat).format('DD-MM-YYY')} </p>
+               <p>địa điểm: {seats.tenHeThongRap} </p>
+               <p>Rạp : {seats.tenCumRap}</p>
+               <p>ghế : {seats.tenGhe}</p>
+           </div>
+       </div>
+   </div>
+     })
+  }
+
+    return <div className="mt-5">
+        <section className="text-gray-600 body-font">
+            <div className="container px-5 py-24 mx-auto">
+                <div className="flex flex-col text-center w-full mb-20">
+                    <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4  text-purple-700 ">Lịch sử đặt vé khách hàng</h1>
+                    <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Hãy xem thông tin,địa điểm , thời gian để có 1 buổi xem phim tuyệt vời. Duy Đan :)</p>
+                </div>
+                <div className="flex flex-wrap -m-2">
+                    {renderTickeTItem()   }
+                    {/* <div className="p-2 lg:w-1/3 md:w-1/2 w-full">
+                        <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+                            <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="http://picsum.photos/200/200" />
+                            <div className="flex-grow">
+                                <h2 className="text-gray-900 title-font font-medium">Lật mặt 48h</h2>
+                                <p className="text-gray-500">10:20 Rạp 5, hệ thống cgv </p>
+                            </div>
+                        </div>
+                    </div> */}
+                </div>
+            </div>
+        </section>
+
+    </div>
 }
