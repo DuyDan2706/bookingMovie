@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction';
 import style from './Checkout.module.css'
@@ -6,7 +6,7 @@ import { QuanLyDatVeReducer } from '../../redux/reducers/QuanLyDatVeReducer'
 import { CloseOutlined, UserOutlined, CheckOutlined } from '@ant-design/icons'
 import './Checkout.css'
 import _ from 'lodash';
-import { DAT_VE } from '../../redux/actions/types/QuanLyDatVeType'
+import { CHUYEN_TAB, DAT_VE } from '../../redux/actions/types/QuanLyDatVeType'
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
 import { Tabs } from 'antd';
 import moment from 'moment';
@@ -279,12 +279,20 @@ function Checkout(props) {
 
 
 const { TabPane } = Tabs
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (props) {
 
-
+    const {tabActive}= useSelector(state=>state.QuanLyDatVeReducer)
+    const dispatch =useDispatch();
+        console.log('tabActive',tabActive)
     return <div className="p-5">
-        <Tabs defaultActiveKey="1">
-            <Tabs.TabPane tab=" 01 CHỌN GHẾ & THANH TOÁN" key="1">
+        <Tabs defaultActiveKey={'1'} activeKey={tabActive} onChange={(key)=>{
+            dispatch({
+                type:'CHANGE_TAB_ACTIVE',
+                number:key
+            })
+        }}>
+            <Tabs.TabPane tab=" 01 CHỌN GHẾ & THANH TOÁN" key="1" >
                 <Checkout {...props} />
             </Tabs.TabPane>
             <Tabs.TabPane tab=" 02 KẾT QUẢ ĐẶT VÉ" key="2">

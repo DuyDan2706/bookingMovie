@@ -5,6 +5,7 @@ import { QuanLyNguoiDungReducer } from './reducers/QuanLyNguoiDungReducer';
 import { QuanLyPhimReducer } from './reducers/QuanLyPhimReducer';
 import { QuanLyRapReducer } from './reducers/QuanLyRapReducer';
 import { QuanLyDatVeReducer } from './reducers/QuanLyDatVeReducer';
+import { LoadingReducer } from './reducers/LoadingReducer';
 
 const rootReducer = combineReducers({
     //state ứng dụng
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     QuanLyPhimReducer,
     QuanLyRapReducer,
     QuanLyNguoiDungReducer,
-    QuanLyDatVeReducer
+    QuanLyDatVeReducer,
+    LoadingReducer
 });
 
 

@@ -26,7 +26,9 @@ export default function Header(props) {
                     <button onClick={()=>{
                         history.push('/login')
                     }} className="self-center px-8 py-3 rounded">Sign in</button>
-                    <button className="self-center px-8 py-3 font-semibold rounded bg-violet-600 text-coolGray-50">Sign up</button>
+                    <button onClick={()=>{
+                        history.push('register')
+                    }} className="self-center px-8 py-3 font-semibold rounded bg-violet-600 text-coolGray-50">Sign up</button>
                 </div>
                 <button className="p-4 lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6 text-coolGray-800">
