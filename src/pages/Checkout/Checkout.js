@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction';
 import style from './Checkout.module.css'
 import { QuanLyDatVeReducer } from '../../redux/reducers/QuanLyDatVeReducer'
-import { CloseOutlined } from '@ant-design/icons'
+import { CloseOutlined,UserOutlined,CheckOutlined } from '@ant-design/icons'
 import './Checkout.css'
 import _ from 'lodash';
 import { DAT_VE } from '../../redux/actions/types/QuanLyDatVeType'
@@ -39,6 +39,12 @@ export default function Checkout(props) {
             // kiểm tra  từng ghế render xem có trong  mảng ghê đang đặt hay không 
             let indexGheDD = danhSachGheDangDat.findIndex(gheDD => gheDD.maGhe === ghe.maGhe);
 
+            //check hinhf dda dat
+             let classgheDaDuocDat ='';
+             if(userLogin.taiKhoan ===ghe.taiKhoanNguoiDat){
+                classgheDaDuocDat ='gheDaDuocDat';
+             }
+
             if (indexGheDD != -1) {
                 classGheDaDat = 'gheDangDat'
             }
@@ -55,12 +61,12 @@ export default function Checkout(props) {
                         type: 'DAT_VE',
                         gheDuocChon: ghe
                     })
-                }} disabled={ghe.daDat} className={`ghe ${ClassGhevip} ${classGheDaDat} ${classGheDangDat} text-center `} key={index}>
+                }} disabled={ghe.daDat} className={`ghe ${ClassGhevip} ${classGheDaDat} ${classGheDangDat} ${classgheDaDuocDat} text-center `} key={index}>
 
                     {/* <button disabled={ ghe.daDat} className={`ghe  ${classGheDaDat} `} key={index}> */}
 
 
-                    {ghe.daDat ? <CloseOutlined style={{ marginBottom: 2 }} /> : ghe.stt}
+                    {ghe.daDat ? classgheDaDuocDat!= ''? <UserOutlined style={{ marginBottom: 2,fontWeight:'bold' }} /> : <CloseOutlined style={{ marginBottom: 2,fontWeight:'bold' }} /> : ghe.stt}
 
                 </button>
                 {/* {ghe.loaiGhe === 'Vip'?  <button className={`${style['ghe']} ${style['gheVip']}`} key={index}>{ghe.stt}</button>: <button className={`${style['ghe']}`} key={index}>{ghe.stt}</button>} */}
@@ -88,6 +94,31 @@ export default function Checkout(props) {
                         <div>
                             {renderSeats()}
                         </div>
+                    </div>
+                    <div className="mt-5 flex justify-center">
+                         <table class=" divide-y divide-gray-200 w-2/3">
+                            <thead class="bg-gray-50 p-5">
+                                <tr>
+                                   <th>Ghế chưa đặt</th> 
+                                   <th>Ghế đang  đặt</th> 
+                                   <th>Ghế Vip</th> 
+                                   <th>Ghế đã được đặt</th> 
+                                   <th>Ghế mình mình đặt</th> 
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td><button className="ghe text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td>
+                                    <td><button className="ghe gheDangDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /></button> </td>
+                                    <td><button className="ghe gheVip text-center"><CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /></button> </td>
+                                    <td><button className="ghe gheDaDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td>
+                                    <td><button className="ghe gheDaDuocDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td>
+                                    {/* <td><button className="ghe gheKhachDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td> */}
+
+                                </tr>
+                            </tbody>
+                         </table>
+
                     </div>
 
                 </div>
