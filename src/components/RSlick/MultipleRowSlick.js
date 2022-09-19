@@ -6,7 +6,8 @@ import Film from '../Film/Film'
 import Film_Flip from "../Film/Film_Flip";
 import { useDispatch,useSelector } from "react-redux";
 import {SET_FILM_DANG_CHIEU,SET_FILM_SAP_CHIEU} from '../../redux/actions/types/QuanLyPhimType'
-
+import { Tabs } from "antd";
+const { TabPane } = Tabs;
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -71,20 +72,39 @@ const MultipleRowSlick = (props) => {
 
 
   return (
+    // <div>
+    //   <button className={`${styleSlick[activeClassDC]} px-8 py-3 font-semibold rounded bg-gray-800 text-white mr-2`} onClick={()=> {
+    //       const action = {type:SET_FILM_DANG_CHIEU}
+    //       dispatch(action);
+    //   }}>PHIM ĐANG CHIẾU</button>
+    //   <button className={`${styleSlick[activeClassSC]} px-8 py-3 font-semibold rounded bg-white text-gray-800 border-gray-800 border`} onClick={()=>{
+    //     const action = {type:SET_FILM_SAP_CHIEU}
+    //     dispatch(action);
+    //   }}>PHIM SẮP CHIẾU</button>
+    //   <Slider {...settings}>
+    //     {renderFilms()}
+    //   </Slider>
+    // </div>
     <div>
-      <button className={`${styleSlick[activeClassDC]} px-8 py-3 font-semibold rounded bg-gray-800 text-white mr-2`} onClick={()=> {
-          const action = {type:SET_FILM_DANG_CHIEU}
-          dispatch(action);
-      }}>PHIM ĐANG CHIẾU</button>
-      <button className={`${styleSlick[activeClassSC]} px-8 py-3 font-semibold rounded bg-white text-gray-800 border-gray-800 border`} onClick={()=>{
-        const action = {type:SET_FILM_SAP_CHIEU}
-        dispatch(action);
-      }}>PHIM SẮP CHIẾU</button>
-      <Slider {...settings}>
-        {renderFilms()}
-      </Slider>
+    <Tabs
+>
+      <TabPane tab="Phim đang chiếu" key="1">
+        <div className="px-8 py-3 font-semibold rounded bg-gray-800 text-white mr-2">
+        <Slider {...settings}>
+      {renderFilms()}
+     </Slider>
+        </div>
+      </TabPane>
+      <TabPane tab="Phim sắp chiếu" key="2">
+        <div className="px-8 py-3 font-semibold rounded bg-white text-gray-800 border-gray-800 ">
+        </div>
+        <Slider {...settings}>
+      {renderFilms()}
+     </Slider>
+      </TabPane>
+      
+    </Tabs>
     </div>
-  
   );
 }
 
