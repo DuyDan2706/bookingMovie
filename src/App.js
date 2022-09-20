@@ -1,7 +1,7 @@
 import './App.css';
 import { createBrowserHistory } from 'history';
 import { Route, Router, Switch } from 'react-router';
-import { HomeTemplate } from './templates/HomeTemplate/HomeTemplate'
+import { HomeTemplate} from './templates/HomeTemplate/HomeTemplate'
 import Home from './pages/Home/Home';
 import Contact from './pages/Contact/Contact';
 import News from './pages/News/News';
@@ -12,8 +12,10 @@ import  CheckoutTemplate  from './templates/CheckoutTemplate/CheckoutTemplate';
 import Checkout from './pages/Checkout/Checkout';
 import { Suspense, lazy } from 'react'
 import { UserTemplate } from './templates/UserTemplate/UserTemplate';
-import Loading from './components/RSlick/Loading';
-
+import Loading from './components/Loading/Loading';
+import Dashboard from './pages/Admin/Dashboard/Dashboard';
+import AdminTemplate from './templates/AdminTemplate/AdminTemplate';
+import Films from './pages/Admin/Films/Films';
 // const CheckoutTemplateLazy = lazy(() => import('./templates/CheckoutTemplate/CheckoutTemplate'))
 
 export const history = createBrowserHistory();
@@ -27,14 +29,15 @@ function App() {
         <HomeTemplate path="/contact" exact Component={Contact} />
         <HomeTemplate path="/news" exact Component={News} />
         <HomeTemplate path="/detail/:id" exact Component={Detail} />
-        <Route path="/register" exact component={Register} />
+        <HomeTemplate path="/register" exact component={Register} />
 
         <CheckoutTemplate path="/checkout/:id" exact component={Checkout} />
 
         <UserTemplate path="/login" exact Component={Login} />
         
         <HomeTemplate path="/" exact Component={Home} />
-
+        <AdminTemplate path="/admin" exact Component={Dashboard} />
+        <AdminTemplate path="/admin/films" exact Component={Films} />
       </Switch>
     </Router>
   );

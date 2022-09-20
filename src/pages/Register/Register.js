@@ -1,77 +1,170 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useFormik } from 'formik';
+// import show from "../../assets/images/show.png";
+// import hide from "../../assets/images/hide.png";
+// import { NavLink, Redirect } from "react-router-dom";
+import { GROUPID, USER_LOGIN } from '../../util/settings/config';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { dangKiTaiKhoanAction } from '../../redux/actions/QuanLyNguoiDungAction';
 
-export default function Register(props) {
-    return (
-        <div>
-        {/* Container */}
-<div className="container mx-auto">
-  <div className="flex justify-center items-center h-screen px-6">
-    {/* Row */}
-    <div className="w-full xl:w-3/4 lg:w-11/12 flex">
-      {/* Col */}
-      <div className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg" style={{backgroundImage: 'url("https://source.unsplash.com/Mv9hjnEUHR4/600x800")'}} />
-      {/* Col */}
-      <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
-        <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
-        <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-          <div className="mb-4 md:flex md:justify-between">
-            <div className="mb-4 md:mr-2 md:mb-0">
-              <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="firstName">
-                First Name
-              </label>
-              <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="First Name" />
+import logoAvatar from "../../assets/images/user-regular.svg";
+import { NavLink } from 'react-router-dom';
+
+export default function Register() {
+  const dispatch = useDispatch()
+  const formik = useFormik({
+      initialValues: {
+          taiKhoan: '',
+          matKhau: '',
+          matKhauConfirm: '',
+          email: '',
+          soDt: '',
+          maNhom: '',
+          hoTen: '',
+          maNhom: GROUPID
+      },
+      validationSchema: Yup.object().shape({
+          taiKhoan: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+          email: Yup.string().email('Invalid email').required('Required'),
+          matKhau: Yup.string().required('Password is required').min(6,"Too short"),
+          matKhauConfirm: Yup.string().oneOf([Yup.ref('matKhau'), null], 'Passwords must match'),
+          hoTen : Yup.string().min(6,"Too Short!")
+      }),
+      onSubmit: values => {
+          // alert(JSON.stringify(values, null, 2));
+          dispatch(dangKiTaiKhoanAction(values))
+      },
+  });
+  return (
+    <div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-96 h-auto rounded-xl">
+        <div className="mx-10">
+          <div className="min-h-full flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full space-y-8">
+              <div>
+                <img className="mx-auto h-12 " src={logoAvatar} alt="Workflow" style={{ color: "white" }} />
+                <h2 className="mt-3 text-center text-2xl font-extrabold text-gray-900">Đăng Kí</h2>
+              </div>
+              <form onSubmit={formik.handleSubmit}>
+                <div className="rounded-md shadow-sm -space-y-px">
+                  <div>
+                    <input
+                      name="taiKhoan"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
+                      placeholder="Tài khoản"
+                    />
+                    {formik.errors.taiKhoan && formik.touched.taiKhoan ? (
+                      <div className="text-red-600">{formik.errors.taiKhoan}</div>
+                    ) : null}
+                  </div>
+                  <br />
+                  <div>
+                    <label className="sr-only mt-5">Mật khẩu</label>
+                    <div className="relative">
+                      <input
+                      type="password"
+                        name="matKhau"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className="appearance-none  block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
+                        placeholder="Mật khẩu"
+                      />
+                    
+                    </div>
+                    {formik.errors.matKhau && formik.touched.matKhau ? (
+                      <div className="text-red-600">{formik.errors.matKhau}</div>
+                    ) : null}
+                  </div>
+                  <br />
+                  <div>
+                    <label className="sr-only mt-5">Nhập lại mật khẩu</label>
+                    <div className="relative">
+                      <input
+                      type="password"
+                        name="nhapLaiMatKhau"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+        
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
+                        placeholder="Nhập lại mật khẩu"
+                      />
+                  
+                    </div>
+                    {formik.errors.nhapLaiMatKhau && formik.touched.nhapLaiMatKhau ? (
+                      <div className="text-red-600">{formik.errors.nhapLaiMatKhau}</div>
+                    ) : null}
+                  </div>
+                  <br />
+                  <div>
+                    <label className="sr-only mt-5">Họ và Tên</label>
+                    <input
+                      name="hoTen"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
+                      placeholder="Họ và tên"
+                    />
+                  </div>
+                  {formik.errors.hoTen && formik.touched.hoTen ? (
+                    <div className="text-red-600">{formik.errors.hoTen}</div>
+                  ) : null}
+                  <br />
+                  <div>
+                    <label className="sr-only mt-2">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
+                      placeholder="Email"
+                    />
+                    {formik.errors.email && formik.touched.email ? (
+                      <div className="text-red-600">{formik.errors.email}</div>
+                    ) : null}
+                  </div>
+                  <br />
+                  <div>
+                    <label className="sr-only mt-5">Số điện thoại di động</label>
+                    <input
+                      name="soDT"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
+                      placeholder="Số điện thoại di động"
+                    />
+                    {formik.errors.soDT && formik.touched.soDT ? (
+                      <div className="text-red-600">{formik.errors.soDT}</div>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-center mt-3">
+                  <div className="text-sm">
+                    <NavLink to="/login" className="font-medium text-red-600 hover:text-gray-900 ">
+                      Bạn có tài khoản rồi? Đăng nhập
+                    </NavLink>
+                  </div>
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    onSubmit={formik.handleSubmit} 
+                    className=" relative w-full flex justify-center py-2 px-4 border border-transparent text-xl font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 mt-3 cursor-pointer"
+                  >
+                    <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+                    Đăng kí
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className="md:ml-2">
-              <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="lastName">
-                Last Name
-              </label>
-              <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Last Name" />
-            </div>
           </div>
-          <div className="mb-4">
-            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
-              Email
-            </label>
-            <input className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" />
-          </div>
-          <div className="mb-4 md:flex md:justify-between">
-            <div className="mb-4 md:mr-2 md:mb-0">
-              <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
-                Password
-              </label>
-              <input className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
-              <p className="text-xs italic text-red-500">Please choose a password.</p>
-            </div>
-            <div className="md:ml-2">
-              <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="c_password">
-                Confirm Password
-              </label>
-              <input className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="c_password" type="password" placeholder="******************" />
-            </div>
-          </div>
-          <div className="mb-6 text-center">
-            <button className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline" type="button">
-              Register Account
-            </button>
-          </div>
-          <hr className="mb-6 border-t" />
-          <div className="text-center">
-            <a className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="#">
-              Forgot Password?
-            </a>
-          </div>
-          <div className="text-center">
-            <a className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="./index.html">
-              Already have an account? Login!
-            </a>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-        </div>
-    )
+  );
 }

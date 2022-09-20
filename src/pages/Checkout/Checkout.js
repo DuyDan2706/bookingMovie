@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction';
 import style from './Checkout.module.css'
 import { QuanLyDatVeReducer } from '../../redux/reducers/QuanLyDatVeReducer'
-import { CloseOutlined, UserOutlined, CheckOutlined } from '@ant-design/icons'
+import { CloseOutlined, UserOutlined, CheckOutlined,SmileOutlined } from '@ant-design/icons'
 import './Checkout.css'
 import _ from 'lodash';
 import { CHUYEN_TAB, DAT_VE } from '../../redux/actions/types/QuanLyDatVeType'
@@ -11,11 +11,12 @@ import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
 import { Tabs } from 'antd';
 import moment from 'moment';
 import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiDungAction';
+import Timer from './Timer';
 function Checkout(props) {
 
     const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer);
     //lấy thông tin đặt vé 
-    const { chiTietPhongVe, danhSachGheDangDat } = useSelector(state => state.QuanLyDatVeReducer);
+    const { chiTietPhongVe, danhSachGheDangDat,danhSachGheKhachDat } = useSelector(state => state.QuanLyDatVeReducer);
     console.log({ chiTietPhongVe })
     console.log('danhSachGheDangDat', danhSachGheDangDat)
 
@@ -43,6 +44,11 @@ function Checkout(props) {
             let indexGheDD = danhSachGheDangDat.findIndex(gheDD => gheDD.maGhe === ghe.maGhe);
 
             //check hinhf dda dat
+            let classGheKhachDat = '';
+            let indexGheKD = danhSachGheKhachDat.findIndex(gheKD => gheKD.maGhe === ghe.maGhe);
+            if(indexGheKD !== -1){
+                classGheKhachDat = 'gheKhachDat';
+            }
             let classgheDaDuocDat = '';
             if (userLogin.taiKhoan === ghe.taiKhoanNguoiDat) {
                 classgheDaDuocDat = 'gheDaDuocDat';
@@ -64,12 +70,12 @@ function Checkout(props) {
                         type: 'DAT_VE',
                         gheDuocChon: ghe
                     })
-                }} disabled={ghe.daDat} className={`ghe ${ClassGhevip} ${classGheDaDat} ${classGheDangDat} ${classgheDaDuocDat} text-center `} key={index}>
+                }} disabled={ghe.daDat || classGheKhachDat !==''} className={`ghe ${ClassGhevip} ${classGheDaDat} ${classGheDangDat} ${classgheDaDuocDat} ${classGheKhachDat} text-center `} key={index}>
 
                     {/* <button disabled={ ghe.daDat} className={`ghe  ${classGheDaDat} `} key={index}> */}
 
 
-                    {ghe.daDat ? classgheDaDuocDat != '' ? <UserOutlined style={{ marginBottom: 2, fontWeight: 'bold' }} /> : <CloseOutlined style={{ marginBottom: 2, fontWeight: 'bold' }} /> : ghe.stt}
+                    {ghe.daDat  ? classgheDaDuocDat != '' ? <UserOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : <CloseOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : classGheKhachDat !=='' ? <SmileOutlined  style={{ marginBottom: 7.5, fontWeight: 'bold' }} />  :  ghe.stt}
 
                 </button>
                 {/* {ghe.loaiGhe === 'Vip'?  <button className={`${style['ghe']} ${style['gheVip']}`} key={index}>{ghe.stt}</button>: <button className={`${style['ghe']}`} key={index}>{ghe.stt}</button>} */}
@@ -83,9 +89,18 @@ function Checkout(props) {
 
 
     return (
+        
         <div className=" min-h-screen mt-5" >
             <div className="grid grid-cols-12">
                 <div className="col-span-9">
+                <div className="col-span-4 text-center my-auto">
+          <div className="mt-2">
+            <h3>Thời gian giữ vé</h3>
+            <h1 className="text-red-600 font-black text-3xl mr-2">
+              <Timer />
+            </h1>
+          </div>
+        </div>
                     <div className="flex flex-col items-center mt-5">
 
                         <div className="bg-black " style={{ width: '80%', height: 15 }}>
@@ -97,6 +112,7 @@ function Checkout(props) {
                         <div>
                             {renderSeats()}
                         </div>
+                        
                     </div>
                     <div className="mt-5 flex justify-center">
                         <table class=" divide-y divide-gray-200 w-2/3">
@@ -107,6 +123,7 @@ function Checkout(props) {
                                     <th>Ghế Vip</th>
                                     <th>Ghế đã được đặt</th>
                                     <th>Ghế mình mình đặt</th>
+                                    <th>Ghế khách đang đặt</th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -116,7 +133,7 @@ function Checkout(props) {
                                     <td><button className="ghe gheVip text-center"><CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /></button> </td>
                                     <td><button className="ghe gheDaDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td>
                                     <td><button className="ghe gheDaDuocDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td>
-                                    {/* <td><button className="ghe gheKhachDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td> */}
+                                    <td><button className="ghe gheKhachDat text-center"> <CheckOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> </button> </td>
 
                                 </tr>
                             </tbody>
@@ -183,7 +200,7 @@ function Checkout(props) {
                         <div className="w-4/5">
                             <span className="text-red-400 text-lg">Chọn Ghế </span>
                             {_.sortBy(danhSachGheDangDat, ['stt']).map((gheDD, index) => {
-                                return <span className="text-green-500 text-xl"> {gheDD.stt}</span>
+                                return <span key={index} className="text-green-500 text-xl"> {gheDD.stt}</span>
                             })}
 
 
@@ -274,6 +291,7 @@ function Checkout(props) {
                 </div>
             </div>
         </div>
+        
     )
 }
 
@@ -282,14 +300,14 @@ const { TabPane } = Tabs
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (props) {
 
-    const {tabActive}= useSelector(state=>state.QuanLyDatVeReducer)
-    const dispatch =useDispatch();
-        console.log('tabActive',tabActive)
+    const { tabActive } = useSelector(state => state.QuanLyDatVeReducer)
+    const dispatch = useDispatch();
+    console.log('tabActive', tabActive)
     return <div className="p-5">
-        <Tabs defaultActiveKey={'1'} activeKey={tabActive} onChange={(key)=>{
+        <Tabs defaultActiveKey={'1'} activeKey={tabActive} onChange={(key) => {
             dispatch({
-                type:'CHANGE_TAB_ACTIVE',
-                number:key
+                type: 'CHANGE_TAB_ACTIVE',
+                number: key
             })
         }}>
             <Tabs.TabPane tab=" 01 CHỌN GHẾ & THANH TOÁN" key="1" >
@@ -305,36 +323,37 @@ export default function (props) {
 
 }
 function KetQuaDatVe(props) {
-const dispatch =useDispatch();
-    const{thongTinNguoiDung} = useSelector(state => state.QuanLyNguoiDungReducer);
+    const dispatch = useDispatch();
+    const { thongTinNguoiDung } = useSelector(state => state.QuanLyNguoiDungReducer);
     const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer);
- 
-    useEffect(()=>{
-        const action =layThongTinNguoiDungAction()
-        dispatch(action)
-    },[])
 
-  console.log('thongTinNguoiDung',thongTinNguoiDung)
-  
-  const renderTickeTItem =function (){
-   
-     return thongTinNguoiDung.thongTinDatVe?.map((ticket,index)=>{
-        const seats =_.first(ticket.danhSachGhe);
-       return <div className="p-2 lg:w-1/3 md:w-1/2 w-full" key={index}>
-       <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-           <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src={ticket.hinhAnh} />
-           <div className="flex-grow">
-               <h2 className="text-gray-900 title-font font-medium">{ticket.tenPhim}</h2>
-               <p className="text-gray-500">{ticket.tenHeThongRap} </p>
-               <p className="text-gray-500">Ngày Chiếu :{moment(ticket.ngayDat).format('hh:mm A')}- Giờ chiếu{moment(ticket.ngayDat).format('DD-MM-YYY')} </p>
-               <p>địa điểm: {seats.tenHeThongRap} </p>
-               <p>Rạp : {seats.tenCumRap}</p>
-               <p>ghế : {seats.tenGhe}</p>
-           </div>
-       </div>
-   </div>
-     })
-  }
+    useEffect(() => {
+        const action = layThongTinNguoiDungAction()
+        dispatch(action)
+    }, [])
+
+    console.log('thongTinNguoiDung', thongTinNguoiDung)
+
+    const renderTickeTItem = function () {
+
+        return thongTinNguoiDung.thongTinDatVe?.map((ticket, index) => {
+            const seats = _.first(ticket.danhSachGhe);
+            return <div className="p-2 lg:w-1/3 md:w-1/2 w-full" key={index}>
+                <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+                    <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src={ticket.hinhAnh} />
+                    <div className="flex-grow">
+                        <h2 className="text-gray-900 title-font font-medium">{ticket.tenPhim}</h2>
+                        <p className="text-gray-500">{ticket.tenHeThongRap} </p>
+                        <p className="text-gray-500">Ngày Chiếu :{moment(ticket.ngayDat).format('hh:mm A')}- Giờ chiếu{moment(ticket.ngayDat).format('DD-MM-YYY')} </p>
+                        <p>địa điểm: {seats.tenHeThongRap} </p>
+                        <p>
+                            <span className="font-bold">Tên rạp:</span>  {seats.tenCumRap} - <span className="font-bold">Ghế:</span>  {ticket.danhSachGhe.map((ghe, index) => { return <span className="text-green-500 text-xl" key={index}> [ {ghe.tenGhe} ] </span> })}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        })
+    }
 
     return <div className="mt-5">
         <section className="text-gray-600 body-font">
@@ -344,7 +363,7 @@ const dispatch =useDispatch();
                     <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Hãy xem thông tin,địa điểm , thời gian để có 1 buổi xem phim tuyệt vời. Duy Đan :)</p>
                 </div>
                 <div className="flex flex-wrap -m-2">
-                    {renderTickeTItem()   }
+                    {renderTickeTItem()}
                     {/* <div className="p-2 lg:w-1/3 md:w-1/2 w-full">
                         <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
                             <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="http://picsum.photos/200/200" />

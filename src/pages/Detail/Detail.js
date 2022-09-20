@@ -47,6 +47,9 @@ export default function Detail(props) {
                             <div className="col-span-2 ml-5" style={{ marginTop: '25%' }}>
                                 <p className="text-sm">Ngày chiếu: {moment(filmDetail.ngayKhoiChieu).format('DD.MM.YYYY')}</p>
                                 <p className="text-xl leading-9">{filmDetail.tenPhim}</p>
+                                <p className="text-xl leading-9">Đạo diễn : đan</p>
+                   
+
                                 {/* <p>{filmDetail.moTa}</p> */}
                             </div>
                         </div>

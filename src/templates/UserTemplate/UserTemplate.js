@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Route } from "react-router";
-
+import backGroundLogin from "../../assets/images/backgroundlogin.jpg";
 
 
 
@@ -11,7 +11,9 @@ export const UserTemplate = (props) => { //path, exact, Component
     return <Route {...restProps} render={(propsRoute) => { //props.location,props.history,props.match
 
         return <Fragment>
-            <div className="lg:flex">
+             <img src={backGroundLogin} alt="" className="w-screen h-screen relative" />
+             <Component {...propsRoute} />
+            {/* <div className="lg:flex">
                <Component {...propsRoute} />
                 <div className="hidden lg:flex items-center justify-center bg-indigo-100 flex-1 h-screen">
                     <div className="max-w-xs transform duration-200 hover:scale-110 cursor-pointer">
@@ -50,7 +52,7 @@ export const UserTemplate = (props) => { //path, exact, Component
                     </div>
                 </div>
             </div>
-
+ */}
 
         </Fragment>
     }} />

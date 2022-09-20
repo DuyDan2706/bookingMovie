@@ -6,7 +6,8 @@ import { CHUYEN_TAB, DAT_VE, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from "../a
 const stateDefault = {
 //    chiTietPhongVe:{}
 chiTietPhongVe: new ThongTinLichChieu(),
-danhSachGheDangDat:[ ],
+danhSachGheDangDat:[ ], //danh sách ghế đã đặt
+danhSachGheKhachDat:  [{maGhe:48350},{maGhe:48351}],  // cái này để dùng cho realtime nha
    tabActive:'1'
 
 }

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-
+import imgLoading from "../../assets/images/wait.gif";
 export default function Loading() {
 
 const {isLoading} = useSelector(state=>state.LoadingReducer)
@@ -9,11 +9,9 @@ const {isLoading} = useSelector(state=>state.LoadingReducer)
     <Fragment>
    {isLoading ?
 
-    <div style={{position:'fixed',top:0,left:0,width:'100%',height:'100%',backgroundColor:'rgba(0,0,0,.5)',display:'flex',justifyContent:'center',alignItems:'center',zIndex:99}}>
-        
-      <div className="text-4xl text-white">Loading...</div>
-        
-        </div>
+<div className="fixed flex items-center justify-center h-full w-screen bg-black z-999">
+<img src={imgLoading} alt="" />
+</div>
                  : ''
    }
    {/*  dùng phương thức 3 ngôi isloading true ? thì ra  ko thì ra rỗng : ' */}

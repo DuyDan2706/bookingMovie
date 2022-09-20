@@ -33,6 +33,25 @@ export const dangNhapAction = (thongTinDangNhap) => {
     }
 
 }
+export const dangKiTaiKhoanAction = (thongTinDangKi) =>{
+    return async (dispatch) =>{
+        try {
+            const result = await quanLyNguoiDungService.dangKyTaiKhoan(thongTinDangKi)
+            if(result.data.statusCode === 200){
+                alert("Đăng kí tài khoản thành công!!!")
+                history.push('/home')
+            }
+        } catch (error) {
+            console.log("Error" , error)
+        }
+    }
+}
+
+
+
+
+
+
 export const layThongTinNguoiDungAction = (thongTinDangNhap) => {
 
 
@@ -60,7 +79,4 @@ export const layThongTinNguoiDungAction = (thongTinDangNhap) => {
     }
 
 }
-
-
-
 
