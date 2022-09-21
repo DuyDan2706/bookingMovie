@@ -50,7 +50,7 @@ export const datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
             await dispatch ({type:DAT_VE_HOAN_TAT})
             dispatch(hideLoadingAction)
             dispatch({type:CHUYEN_TAB})
-
+            alert("đặt vé  thành công!")
         } catch (error) {
             dispatch(hideLoadingAction)
 
