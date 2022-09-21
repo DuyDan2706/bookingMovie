@@ -15,9 +15,15 @@ export class QuanLyNguoiDungService  extends baseService{
 
     }
     dangKyTaiKhoan = (thongTinDangKy) =>{
-    return this.post(`/api/QuanLyNguoiDung/DangKy`, thongTinDangKy);
+    return this.post(`/api/QuanLyNguoiDung/DangKy`,thongTinDangKy);
   }
+  capNhatThongTinProfile = (profile) =>{
+        return this.put(`/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,profile)
+    }
+
+
 }
+
 
 
 

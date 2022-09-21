@@ -1,5 +1,5 @@
 import { quanLyNguoiDungService } from "../../services/QuanLyNguoiDung"
-import { DANG_NHAP_ACTION, SET_THONG_TIN_NGUOI_DUNG } from "./types/QuanLyNguoiDungType";
+import { DANG_KI_ACTION, DANG_NHAP_ACTION, SET_THONG_TIN_NGUOI_DUNG } from "./types/QuanLyNguoiDungType";
 import { history } from "../../App";
 
 
@@ -38,15 +38,32 @@ export const dangKiTaiKhoanAction = (thongTinDangKi) =>{
         try {
             const result = await quanLyNguoiDungService.dangKyTaiKhoan(thongTinDangKi)
             if(result.data.statusCode === 200){
+                dispatch({
+                    type: DANG_KI_ACTION,
+                    thongTinDangKi: result.data.content
+                })
                 alert("Đăng kí tài khoản thành công!!!")
                 history.push('/home')
+                console.log('result', result);
             }
         } catch (error) {
             console.log("Error" , error)
         }
     }
 }
-
+export const capNhatThongTinProfileAction = (profile) =>{
+    return async dispatch =>{
+        try {
+            const result = await quanLyNguoiDungService.capNhatThongTinProfile(profile)
+            if(result.data.statusCode === 200){
+                alert("Cập nhật thành công!")
+                dispatch(layThongTinNguoiDungAction())
+            }
+        } catch (error) {
+            console.log("error",error)
+        }
+    }
+}
 
 
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Fragment} from "react";
 import { Redirect, Route } from "react-router";
 import { USER_LOGIN } from "../../util/settings/config";
@@ -6,7 +7,9 @@ import { USER_LOGIN } from "../../util/settings/config";
 
 
  const CheckoutTemplate = (props) => { //path, exact, Component
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
     const { Component, ...restProps } = props;
 
     if(!localStorage.getItem(USER_LOGIN)) {

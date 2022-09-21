@@ -15,7 +15,8 @@ import { UserTemplate } from './templates/UserTemplate/UserTemplate';
 import Loading from './components/Loading/Loading';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import AdminTemplate from './templates/AdminTemplate/AdminTemplate';
-import Films from './pages/Admin/Films/Films';
+import Profile from './pages/Profile/Profile';
+
 // const CheckoutTemplateLazy = lazy(() => import('./templates/CheckoutTemplate/CheckoutTemplate'))
 
 export const history = createBrowserHistory();
@@ -29,15 +30,17 @@ function App() {
         <HomeTemplate path="/contact" exact Component={Contact} />
         <HomeTemplate path="/news" exact Component={News} />
         <HomeTemplate path="/detail/:id" exact Component={Detail} />
-        <HomeTemplate path="/register" exact component={Register} />
+        <UserTemplate path="/register" exact component={Register} />
 
         <CheckoutTemplate path="/checkout/:id" exact component={Checkout} />
 
         <UserTemplate path="/login" exact Component={Login} />
+        <CheckoutTemplate path="/profile" exact Component={Profile} />
         
         <HomeTemplate path="/" exact Component={Home} />
         <AdminTemplate path="/admin" exact Component={Dashboard} />
-        <AdminTemplate path="/admin/films" exact Component={Films} />
+
+    
       </Switch>
     </Router>
   );

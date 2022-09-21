@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction';
 import style from './Checkout.module.css'
 import { QuanLyDatVeReducer } from '../../redux/reducers/QuanLyDatVeReducer'
-import { CloseOutlined, UserOutlined, CheckOutlined,SmileOutlined } from '@ant-design/icons'
+import { CloseOutlined, UserOutlined, CheckOutlined,SmileOutlined, HomeOutlined } from '@ant-design/icons'
 import './Checkout.css'
 import _ from 'lodash';
 import { CHUYEN_TAB, DAT_VE } from '../../redux/actions/types/QuanLyDatVeType'
@@ -12,6 +12,9 @@ import { Tabs } from 'antd';
 import moment from 'moment';
 import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiDungAction';
 import Timer from './Timer';
+import { TOKEN, USER_LOGIN } from '../../util/settings/config';
+import { history } from '../../App';
+import { NavLink } from 'react-router-dom';
 function Checkout(props) {
 
     const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer);
@@ -296,32 +299,60 @@ function Checkout(props) {
 }
 
 
-const { TabPane } = Tabs
-// eslint-disable-next-line import/no-anonymous-default-export
-export default function (props) {
+const { TabPane } = Tabs;
 
-    const { tabActive } = useSelector(state => state.QuanLyDatVeReducer)
+export default function CheckoutTab(props) {
+    const {tabActive} = useSelector(state=>state.QuanLyDatVeReducer);
     const dispatch = useDispatch();
-    console.log('tabActive', tabActive)
-    return <div className="p-5">
-        <Tabs defaultActiveKey={'1'} activeKey={tabActive} onChange={(key) => {
+    console.log('tabActive',tabActive);
+
+    const {userLogin} = useSelector(state=>state.QuanLyNguoiDungReducer)
+    useEffect(()=>{
+        return ()=> {
             dispatch({
-                type: 'CHANGE_TAB_ACTIVE',
-                number: key
+                type:'CHANGE_TAB_ACTIVE',
+                number:'1'
+            })
+        }
+    },[])
+    
+    const operations = <Fragment>
+        {!_.isEmpty(userLogin) ? <Fragment> <button onClick={()=>{
+            history.push('/profile')
+        }}> <div style={{width:50,height:50,display:'flex',justifyContent:'center',alignItems:'center'}} className="text-2xl ml-5 rounded-full bg-red-200">{userLogin.taiKhoan.substr(0,1)}</div>Hello ! {userLogin.taiKhoan}</button> <button onClick={()=>{
+            localStorage.removeItem(USER_LOGIN);
+            localStorage.removeItem(TOKEN);
+            history.push('/home');
+            window.location.reload();
+        }} className="text-blue-800">Đăng xuất</button> </Fragment>: ''} 
+
+
+    </Fragment>
+
+    return <div className="p-5">
+        <Tabs tabBarExtraContent={operations} defaultActiveKey="1" activeKey={tabActive} onChange={(key)=>{
+
+            // console.log('key',  key)
+           dispatch({
+                type:'CHANGE_TAB_ACTIVE',
+                number:key.toString()
             })
         }}>
-            <Tabs.TabPane tab=" 01 CHỌN GHẾ & THANH TOÁN" key="1" >
+            <TabPane tab="01 CHỌN GHẾ & THANH TOÁN" key="1" >
                 <Checkout {...props} />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab=" 02 KẾT QUẢ ĐẶT VÉ" key="2">
+            </TabPane>
+            <TabPane tab="02 KẾT QUẢ ĐẶT VÉ" key="2">
                 <KetQuaDatVe {...props} />
-            </Tabs.TabPane>
-
+            </TabPane>
+            <TabPane tab={<div className="text-center" style={{display:'flex', justifyContent:'center',alignItems:'center'}}><NavLink to="/"><HomeOutlined style={{marginLeft:10,fontSize:25}} /></NavLink></div>} key="3">
+             
+            </TabPane>
         </Tabs>
 
     </div>
 
 }
+
 function KetQuaDatVe(props) {
     const dispatch = useDispatch();
     const { thongTinNguoiDung } = useSelector(state => state.QuanLyNguoiDungReducer);
