@@ -7,9 +7,9 @@ export class QuanLyDatVeService  extends baseService{
         super();
     }
 
-    layChiTietPhongVe = (maLichChieu) => { // mã lịch chiu lay tu url
-        return this.get(`api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`)
-    }
+    // layChiTietPhongVe = (maLichChieu) => { // mã lịch chiu lay tu url
+    //     return this.get(`api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`)
+    // }
     
    //viêt api đặt vé
    

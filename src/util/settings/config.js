@@ -1,8 +1,8 @@
 //Định nghĩa các tham số cố định
 
-export const DOMAIN = 'https://movieapi.cyberlearn.vn';
-export const TOKEN = 'accessToken';
-export const GROUPID = 'GP03';
+export const DOMAIN = 'http://cinemasystem.somee.com';
+export const TOKEN = 'data';
+
 
 
 export const USER_LOGIN = 'USER_LOGIN';

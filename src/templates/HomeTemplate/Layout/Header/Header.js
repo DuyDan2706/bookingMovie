@@ -24,7 +24,7 @@ export default function Header(props) {
 
         return <Fragment> <button onClick={() => {
             history.push('/profile')
-        }} className="self-center px-8 py-3 rounded">Hello ! {userLogin.taiKhoan}</button>
+        }} className="self-center px-8 py-3 rounded">Hello ! {userLogin.gmail}</button>
             <button onClick={() => {
                 localStorage.removeItem(USER_LOGIN);
                 localStorage.removeItem(TOKEN);

@@ -18,8 +18,23 @@ export default function Login(props) {
 
     const formik = useFormik({
         initialValues: {
-          taiKhoan: '',
-          matKhau: '',
+          email: '',
+          password: '',
+      // fullName: '',
+      // phone: '',
+      // email:'',
+      // date:'' ,
+      // gender: true,
+      // address: '',
+      // cinemaId: '',
+      // isLogged: '',
+      // roleId:'',
+      // active: '',
+      // avatar: '',
+      // cinema: null,
+      // role: null,
+      // bills: [],
+      // tickeds: []
         },
         onSubmit: values => {
 
@@ -39,22 +54,22 @@ export default function Login(props) {
                 <div className="max-w-md w-full space-y-8">
                   <div>
                     <img className="mx-auto h-10 " src={logoAvatar} alt="Workflow" />
-                    <h2 className="mt-1 text-center text-xl font-extrabold text-gray-900">Đăng Nhập</h2>
+                    <h2 className="mt-1 text-center text-xl font-extrabold text-gray-900">email</h2>
                   </div>
                   <form onSubmit={formik.handleSubmit}>
                     <div className="rounded-md shadow-sm">
                       <div>
                         <label className="sr-only">Tài Khoản</label>
                         <input
-                          name="taiKhoan"
+                          name="email"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           onFocus={formik.handleBlur}
                           className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
-                          placeholder="Tài Khoản"
+                          placeholder="email"
                         />
-                        {formik.errors.taiKhoan && formik.touched.taiKhoan ? (
-                          <div className="text-red-600">{formik.errors.taiKhoan}</div>
+                        {formik.errors.email && formik.touched.email ? (
+                          <div className="text-red-600">{formik.errors.email}</div>
                         ) : null}
                       </div>
                       <br />
@@ -62,13 +77,13 @@ export default function Login(props) {
                         <label className="sr-only mt-5">Mật Khẩu</label>
                         <div className="relative">
                           <input
-                            name="matKhau"
+                            name="password"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             onFocus={formik.handleBlur}
                             type={showPass ? "type" : "password"}
                             className="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm"
-                            placeholder="Mật Khẩu"
+                            placeholder="password"
                           />
                           <button
                             type="button"
@@ -86,8 +101,8 @@ export default function Login(props) {
                             }
                           </button>
                         </div>
-                        {formik.errors.matKhau && formik.touched.matKhau ? (
-                          <div className="text-red-600">{formik.errors.matKhau}</div>
+                        {formik.errors.password && formik.touched.password ? (
+                          <div className="text-red-600">{formik.errors.password}</div>
                         ) : null}
                       </div>
                     </div>

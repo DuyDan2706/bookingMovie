@@ -59,20 +59,24 @@ function TabProfile(props) {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            taiKhoan: thongTinCaNhan?.taiKhoan,
-            matKhau: thongTinCaNhan?.matKhau,
             email: thongTinCaNhan?.email,
-            soDt: thongTinCaNhan?.soDT,
-            hoTen: thongTinCaNhan?.hoTen,
-            maNhom: GROUPID,
-            maLoaiNguoiDung : JSON.parse(localStorage.getItem(USER_LOGIN)).maLoaiNguoiDung
+            password: thongTinCaNhan?.password,
+            phone: thongTinCaNhan?.phone,
+            fullName: thongTinCaNhan?.fullName,
+            date:thongTinCaNhan?.date,
+            gender:thongTinCaNhan?.gender,
+            cinema:null,
+            bills:[],
+            tickeds:[],
+            // maNhom: GROUPID,
+            role : JSON.parse(localStorage.getItem(USER_LOGIN)).role
         },
         validationSchema: Yup.object().shape({
-            taiKhoan: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-            matKhau: Yup.string().min(6, 'Too Short!').max(20, 'Too Long!').required('Required'),
-            email: Yup.string().email('Invalid email').required('Required'),
-            soDt: Yup.number().typeError("Must be number!").min(10, "Too Short!").required("Required"),
-            hoTen: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+            email: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+            password: Yup.string().min(6, 'Too Short!').max(20, 'Too Long!').required('Required'),
+            // email: Yup.string().email('Invalid email').required('Required'),
+            phone: Yup.number().typeError("Must be number!").min(10, "Too Short!").required("Required"),
+            fullName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
         }),
         onSubmit: async values => {
             // alert(JSON.stringify(values, null, 2));
@@ -88,15 +92,15 @@ function TabProfile(props) {
                 </div>
                 <div className="flex flex-col space-y-4">
                     <div>
-                        <h2 className="text-2xl font-semibold">{thongTinCaNhan.hoTen}</h2>
-                        <span className="text-sm text-coolGray-600">{thongTinCaNhan.taiKhoan}</span>
+                        <h2 className="text-2xl font-semibold">{thongTinCaNhan.fullName}</h2>
+                        <span className="text-sm text-coolGray-600">{thongTinCaNhan.email}</span>
                     </div>
                     <div className="space-y-1">
                         <span className="flex items-center space-x-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="Email address" className="w-4 h-4">
                                 <path fill="currentColor" d="M274.6,25.623a32.006,32.006,0,0,0-37.2,0L16,183.766V496H496V183.766ZM464,402.693,339.97,322.96,464,226.492ZM256,51.662,454.429,193.4,311.434,304.615,256,268.979l-55.434,35.636L57.571,193.4ZM48,226.492,172.03,322.96,48,402.693ZM464,464H48V440.735L256,307.021,464,440.735Z" />
                             </svg>
-                            <span className="text-coolGray-600">{thongTinCaNhan.email}</span>
+                            <span className="text-coolGray-600">{thongTinCaNhan.gender}</span>
                         </span>
                         <span className="flex items-center space-x-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="Phonenumber" className="w-4 h-4">

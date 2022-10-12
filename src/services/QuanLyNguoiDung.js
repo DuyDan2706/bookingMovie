@@ -7,19 +7,19 @@ export class QuanLyNguoiDungService  extends baseService{
     }
 
     dangNhap = (thongTinDangNhap) => { // {taiKhoan:'',matKhau:''}
-        return this.post(`/api/QuanLyNguoiDung/DangNhap`,thongTinDangNhap);
+        return this.post(`api/Account/Login`,thongTinDangNhap);
     }
     //  trả luôn thông tin cá nhân :)
     LayThongTinNguoiDung = ()=>{
-         return this.post(`/api/QuanLyNguoiDung/ThongTinTaiKhoan`)  
+         return this.post(`api/Account`)  
 
     }
     dangKyTaiKhoan = (thongTinDangKy) =>{
-    return this.post(`/api/QuanLyNguoiDung/DangKy`,thongTinDangKy);
+    return this.post(`api/Account/Register`,thongTinDangKy);
   }
-  capNhatThongTinProfile = (profile) =>{
-        return this.put(`/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,profile)
-    }
+//   capNhatThongTinProfile = (profile) =>{
+//         return this.put(`/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,profile)
+//     }
 
 
 }
