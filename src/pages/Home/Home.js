@@ -16,6 +16,7 @@ export default function Home(props) {
     const dispatch = useDispatch();
     console.log('propsHome123', arrFilm);
     console.log('heThongRapChieu',heThongRapChieu)
+   
     // props.match.params
 
     // const renderFilms = () => {
@@ -29,7 +30,7 @@ export default function Home(props) {
     useEffect(()=>{
         const action = layDanhSachPhimAction();
         dispatch(action); //dispatch function từ thunk
-
+        dispatch(layDanhSachPhimTrongRapAction(1));
         dispatch(layDanhSachHeThongRapAction());
         dispatch(layThongTinChiTietPhim());
         dispatch(layDanhSachPhimTrongRapAction());

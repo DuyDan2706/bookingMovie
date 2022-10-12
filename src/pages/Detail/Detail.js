@@ -90,7 +90,7 @@ export default function Detail(props) {
                                     {filmDetail.heThongRapChieu?.map((htr, index) => {
                                         return <TabPane
                                             tab={<div className="flex flex-row items-center justify-center">
-                                                <img src={htr.image} className="rounded-full w-full" style={{width:50}} />
+                                                <img src={htr.name} className="rounded-full w-full" style={{width:50}} />
                                                 <div className="text-center ml-2">
                                                 {htr.name}
                                                 </div>
