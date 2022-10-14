@@ -7,8 +7,13 @@ import { layDanhSachPhimTrongRapAction } from '../../../redux/actions/QuanLyRapA
 import { useSelector, useDispatch } from 'react-redux'
 const { TabPane } = Tabs;
 
+<<<<<<< HEAD
 export default function Demo ({heThongRapChieu}) {
     const [state, setState] = useState({ tabPosition: "left" });
+=======
+export default function Demo (props) {
+
+>>>>>>> 11e8a11cdc4e70622d3e6e13a6e1e0c3b870288d
     const {heThongphimRapChieu} = useSelector(state => state.QuanLyRapReducer);
     const dispatch = useDispatch();
     
@@ -19,8 +24,13 @@ export default function Demo ({heThongRapChieu}) {
 
 
    let renderHeThongRap = () => {
+<<<<<<< HEAD
         return heThongRapChieu?.map((heThongRap, index) => {
             let { tabPosition } = state;
+=======
+        return this.props.heThongRapChieu?.map((heThongRap, index) => {
+            let { tabPosition } = this.state;
+>>>>>>> 11e8a11cdc4e70622d3e6e13a6e1e0c3b870288d
             return <TabPane onClick={() => handleClickOpen(heThongRap.id)} tab={ <div style={{ width: '300px', display: 'flex' }} >
             <img src="https://s3img.vcdn.vn/123phim/2018/09/ddc-dong-da-15379624326697.jpg" width="50" /> <br />
             <div className="text-left ml-2"  onChange={console.log("da bam1")}>
@@ -33,9 +43,19 @@ export default function Demo ({heThongRapChieu}) {
             } key={index}>
                 <Tabs onChange={console.log("oc cho")} tabPosition={tabPosition}>
 
+<<<<<<< HEAD
                         return <TabPane   key={index}   >
                             {/*Load phim tương ứng */}
                             {heThongphimRapChieu?.map((phim, index) => {
+=======
+
+                    
+                  
+                        return <TabPane    
+                            key={index}>
+                            {/*Load phim tương ứng */}
+                            {this.props.heThongphimRapChieu?.map((phim, index) => {
+>>>>>>> 11e8a11cdc4e70622d3e6e13a6e1e0c3b870288d
                                 return <Fragment key={index}>
                                     <div className="my-5" >
                                         <div style={{ display: 'flex' }}>
@@ -81,9 +101,18 @@ export default function Demo ({heThongRapChieu}) {
             <>
 
                 <Tabs tabPosition={tabPosition}>
+<<<<<<< HEAD
                    {renderHeThongRap(heThongphimRapChieu)}
+=======
+                   {renderHeThongRap}
+>>>>>>> 11e8a11cdc4e70622d3e6e13a6e1e0c3b870288d
                 </Tabs>
             </>
         );
     
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 11e8a11cdc4e70622d3e6e13a6e1e0c3b870288d

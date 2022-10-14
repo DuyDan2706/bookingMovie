@@ -32,6 +32,7 @@ export default function Home(props) {
         dispatch(action); //dispatch function từ thunk
         dispatch(layDanhSachPhimTrongRapAction(1));
         dispatch(layDanhSachHeThongRapAction());
+        dispatch(layDanhSachPhimTrongRapAction(1));
         dispatch(layThongTinChiTietPhim());
         dispatch(layDanhSachPhimTrongRapAction());
     },[])
