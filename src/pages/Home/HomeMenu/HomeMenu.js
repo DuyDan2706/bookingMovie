@@ -48,8 +48,8 @@ export default function Demo ({heThongRapChieu}) {
                                                     {phim.filmInCinemas?.slice(0, 12).map((lichChieu, index) => {
                                                         if(heThongRap.id === lichChieu.cinemaId){
                                                             return <NavLink to={`/checkout/${lichChieu.cinemaId}`} key={index}  className="text-2xl text-green-400" >
-                                                            {moment(lichChieu.startime).format('hh:mm A')} 
-                                                            {moment(lichChieu.endtime).format('hh:mm A')}
+                                                            {moment(lichChieu.startime).format('hh:mm A')}  < br/>
+                                                            {moment(lichChieu.endtime).format('hh:mm A')} 
                                                         </NavLink>
                                                         }
                                                       

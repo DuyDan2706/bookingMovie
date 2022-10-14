@@ -1,5 +1,5 @@
 import { ThongTinLichChieu } from "../../_core/models/ThongTinPhongVe";
-import { CHUYEN_TAB, DAT_VE, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from "../actions/types/QuanLyDatVeType";
+import { CHUYEN_TAB, DANH_SACH_GHE, DAT_VE, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from "../actions/types/QuanLyDatVeType";
 
 
 
@@ -7,21 +7,24 @@ const stateDefault = {
 //    chiTietPhongVe:{}
 chiTietPhongVe: new ThongTinLichChieu(),
 danhSachGheDangDat:[ ], //danh sách ghế đã đặt
-danhSachGheKhachDat:  [{maGhe:48350},{maGhe:48351}],  // cái này để dùng cho realtime nha
+danhSachGheKhachDat:  [{title:1},{title:1}],  // cái này để dùng cho realtime nha
    tabActive:'1'
 
 }
 export const QuanLyDatVeReducer = (state=stateDefault,action)=>{
     switch (action.type) {
-
-        case SET_CHI_TIET_PHONG_VE: {
-            state.chiTietPhongVe = action.chiTietPhongVe;
-            return {...state}
-        }
+case DANH_SACH_GHE:{
+  state.chiTietPhongVe = action.chiTietPhongVe;
+   return {...state}
+}
+        // case SET_CHI_TIET_PHONG_VE: {
+        //     state.chiTietPhongVe = action.chiTietPhongVe;
+        //     return {...state}
+        // }
         case DAT_VE :{
             // cập nhật danh sách ghế đang đặt
             let danhSachGheCapNhat = [...state.danhSachGheDangDat]
-           let index =danhSachGheCapNhat.findIndex(gheDD => gheDD.maGhe ===action.gheDuocChon.maGhe)         
+           let index =danhSachGheCapNhat.findIndex(gheDD => gheDD.title ===action.gheDuocChon.title)         
               if(index!=-1){
                 // nếu tìm thấy ghế được chọn  trong mảng có nghĩa  trước đó đã click vào rồi  ==> xóa đi
                 danhSachGheCapNhat.splice(index,1)

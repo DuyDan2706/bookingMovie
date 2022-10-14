@@ -15,12 +15,11 @@ export class ThongTinPhim {
     gioChieu='';
 }
 export class ghe {
-    maGhe ='';
-    tenGhe= ''
-    maRap= '';
-    loaiGhe='';
-    stt='';
-    giaVe='';
-    daDat='';
-    taiKhoanNguoiDat='';
+    id ='';
+    title= ''
+    roomId= '';
+    description=null;
+    active=true;
+    room='';
+    tickeds='';
 }

@@ -1,24 +1,54 @@
 import { quanLyDatVeService } from "../../services/QuanLyDatVeService";
 import { ThongTinDatVe } from "../../_core/models/ThongTinDatVe";
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
-import { SET_CHI_TIET_PHONG_VE,DAT_VE_HOAN_TAT, CHUYEN_TAB } from "./types/QuanLyDatVeType";
+import { SET_CHI_TIET_PHONG_VE,DAT_VE_HOAN_TAT, CHUYEN_TAB, DANH_SACH_GHE } from "./types/QuanLyDatVeType";
 
 
 
-export const layChiTietPhongVeAction =(maLichChieu) =>{
+export const layChiTietPhongVeAction =() =>{
 
     return async (dispatch) => {
 
        
         try {
-            const result = await quanLyDatVeService.layChiTietPhongVe(maLichChieu);
+            const result = await quanLyDatVeService.layChiTietPhongVe();
 
             console.log('result', result);
             if (result.data.statusCode === 200) {
                 dispatch({
                    
                     type:SET_CHI_TIET_PHONG_VE,
-                    chiTietPhongVe:result.data.content
+                    chiTietPhongVe:result.data.data
+                })
+            }
+            // chuyển hương đăng nhập về trang trước đso
+            
+        
+ 
+           
+
+        } catch (error) {
+            console.log('error',error)
+            console.log('error', error.response?.data);
+        }
+
+    }
+
+}
+export const layChiTietgheAction =() =>{
+
+    return async (dispatch) => {
+
+       
+        try {
+            const result = await quanLyDatVeService.danhsachghe();
+
+            // console.log('ghe', result);
+            if (result.data.statusCode === 200) {
+                dispatch({
+                   
+                    type:DANH_SACH_GHE,
+                    chiTietPhongVe:result.data.data
                 })
             }
             // chuyển hương đăng nhập về trang trước đso
