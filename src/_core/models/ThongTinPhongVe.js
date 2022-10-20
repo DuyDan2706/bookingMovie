@@ -1,25 +1,28 @@
 export class ThongTinLichChieu{
-  ThongTinPhim = new ThongTinPhim();
-  danhSachGhe = [];
+  danhSachGhe =[  {}
+  ];
+  // danhSachGhe = new ThongTinLichChieu
    
 }
 
-export class ThongTinPhim {
-    maLichChieu = '';
-    tenCumRap='';
-    tenRap = '';
-    diaChi= '';
-    tenPhim='';
-    hinhAnh='';
-    ngayChieu='';
-    gioChieu='';
-}
-export class ghe {
-    id ='';
-    title= ''
+// export class ThongTinPhim {
+//     maLichChieu = '';
+//     tenCumRap='';
+//     tenRap = '';
+//     diaChi= '';
+//     tenPhim='';
+//     hinhAnh='';
+//     ngayChieu='';
+//     gioChieu='';
+// }
+export class danhSachGhe {
+    id='';
+    title= '';
     roomId= '';
-    description=null;
-    active=true;
+    description='';
+    active='';
     room='';
     tickeds='';
 }
+
+

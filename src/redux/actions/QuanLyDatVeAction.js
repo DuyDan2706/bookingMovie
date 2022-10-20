@@ -18,7 +18,7 @@ export const layChiTietPhongVeAction =() =>{
                 dispatch({
                    
                     type:SET_CHI_TIET_PHONG_VE,
-                    chiTietPhongVe:result.data.data
+                    danhsachve:result.data.data
                 })
             }
             // chuyển hương đăng nhập về trang trước đso
@@ -36,23 +36,25 @@ export const layChiTietPhongVeAction =() =>{
 
 }
 export const layChiTietgheAction =() =>{
-
+   
     return async (dispatch) => {
 
        
         try {
             const result = await quanLyDatVeService.danhsachghe();
 
-            // console.log('ghe', result);
+      
             if (result.data.statusCode === 200) {
+                console.log('danh sach ghe dan', result);
                 dispatch({
                    
                     type:DANH_SACH_GHE,
                     chiTietPhongVe:result.data.data
+               
                 })
+               
             }
             // chuyển hương đăng nhập về trang trước đso
-            
         
  
            
@@ -66,26 +68,26 @@ export const layChiTietgheAction =() =>{
 
 }
 
-export const datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
+// export const datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
 
 
-    return async dispatch => {
-        try {
-               dispatch(displayLoadingAction)
+//     return async dispatch => {
+//         try {
+//                dispatch(displayLoadingAction)
 
-            const result = await quanLyDatVeService.datVe(thongTinDatVe);
-            console.log(result.data.content);
-            //đặt vé thành công gọi Api load  lại phòng vé
-            await dispatch(layChiTietPhongVeAction(thongTinDatVe.maLichChieu))
-            await dispatch ({type:DAT_VE_HOAN_TAT})
-            dispatch(hideLoadingAction)
-            dispatch({type:CHUYEN_TAB})
-            alert("đặt vé  thành công!")
-        } catch (error) {
-            dispatch(hideLoadingAction)
+//             const result = await quanLyDatVeService.datVe(thongTinDatVe);
+//             console.log(result.data.content);
+//             //đặt vé thành công gọi Api load  lại phòng vé
+//             await dispatch(layChiTietPhongVeAction(thongTinDatVe.maLichChieu))
+//             await dispatch ({type:DAT_VE_HOAN_TAT})
+//             dispatch(hideLoadingAction)
+//             dispatch({type:CHUYEN_TAB})
+//             alert("đặt vé  thành công!")
+//         } catch (error) {
+//             dispatch(hideLoadingAction)
 
-            console.log(error.response.data);
-        }
-    }
+//             console.log(error.response.data);
+//         }
+//     }
 
-}
+// }

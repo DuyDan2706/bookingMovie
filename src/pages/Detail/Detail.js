@@ -153,7 +153,9 @@ export default function Detail(props) {
                                     <div class="rowInfo mb-4" style={{display:'flex'}}>
                                         <div class="titleInfo">Nội dung</div>
                                         <p class ="destion contentInfo">
-                                        Một biệt đội được phái vào rừng sâu để tìm tài liệu tuyệt mật và những người đồng đội mất tích. 
+                                        Một biệt đội được phái vào rừng sâu để tìm tài liệu tuyệt mật và những người đồng đội mất tích. Phim đang chiếu
+Phim sắp chiếu
+
                                         </p>
                                     </div>
                                     </div>
