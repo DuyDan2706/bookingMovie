@@ -7,6 +7,7 @@ import MultipleRowSlick from '../../components/RSlick/MultipleRowSlick'
 import { layDanhSachPhimAction } from '../../redux/actions/QuanLyPhimActions';
 import { layDanhSachHeThongRapAction, layDanhSachPhimTrongRapAction, layThongTinChiTietPhim } from '../../redux/actions/QuanLyRapActions';
 import HomeCarousel from '../../templates/HomeTemplate/Layout/HomeCarousel/HomeCarousel';
+import { layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction';
 
 export default function Home(props) {
 
@@ -16,7 +17,7 @@ export default function Home(props) {
     const dispatch = useDispatch();
     console.log('propsHome123', arrFilm);
     console.log('heThongRapChieu',heThongRapChieu)
-   
+    //  const {danhsachve} = useSelector(state => state.QuanLyDatVeReducer);
     // props.match.params
 
     // const renderFilms = () => {
@@ -30,11 +31,13 @@ export default function Home(props) {
     useEffect(()=>{
         const action = layDanhSachPhimAction();
         dispatch(action); //dispatch function từ thunk
-        dispatch(layDanhSachPhimTrongRapAction(1));
+        dispatch(layDanhSachPhimTrongRapAction());
         dispatch(layDanhSachHeThongRapAction());
-        dispatch(layDanhSachPhimTrongRapAction(1));
+        dispatch(layDanhSachPhimTrongRapAction());
         dispatch(layThongTinChiTietPhim());
         dispatch(layDanhSachPhimTrongRapAction());
+        // dispatch(layChiTietPhongVeAction())
+     
     },[])
     
     return (

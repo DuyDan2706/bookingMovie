@@ -6,7 +6,7 @@ import { CHUYEN_TAB, DANH_SACH_GHE, DAT_VE, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_
 const stateDefault = {
   chiTietPhongVe:[{}],
 // chiTietPhongVe: new ThongTinLichChieu(),
-danhsachve:{},
+danhsachve:[{}],
 danhSachGheDangDat:[ ], //danh sách ghế đã đặt
 danhSachGheKhachDat:  [{title:1},{title:1}],  // cái này để dùng cho realtime nha
    tabActive:'1'
@@ -18,10 +18,10 @@ case DANH_SACH_GHE:{
   state.chiTietPhongVe = action.chiTietPhongVe;
    return {...state}
 }
-        // case SET_CHI_TIET_PHONG_VE: {
-        //     state.danhsachve = action.danhsachve;
-        //     return {...state}
-        // }
+        case SET_CHI_TIET_PHONG_VE: {
+            state.danhsachve = action.danhsachve;
+            return {...state}
+        }
         case DAT_VE :{
             // cập nhật danh sách ghế đang đặt
             let danhSachGheCapNhat = [...state.danhSachGheDangDat]
@@ -45,15 +45,15 @@ case DANH_SACH_GHE:{
               return{...state}
          }
 
-        // case CHUYEN_TAB :{
-        //   state.tabActive ='2';
-        //   return{...state}
-        // }
-        //  // quay laij 
-        //  case 'CHANGE_TAB_ACTIVE': {
-        //   state.tabActive =action.number;
-        //   return{...state}
-        //  }
+        case CHUYEN_TAB :{
+          state.tabActive ='2';
+          return{...state}
+        }
+         // quay laij 
+         case 'CHANGE_TAB_ACTIVE': {
+          state.tabActive =action.number;
+          return{...state}
+         }
 
 
         default: return { ...state }

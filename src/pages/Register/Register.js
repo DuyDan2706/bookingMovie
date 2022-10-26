@@ -177,6 +177,7 @@ export default function Register() {
                         Select Gender{" "}
                       </option>
                       <option value={true} >
+                        
                         {" "}
                         male
                       </option>

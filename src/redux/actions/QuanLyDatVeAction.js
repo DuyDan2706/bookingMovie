@@ -5,13 +5,13 @@ import { SET_CHI_TIET_PHONG_VE,DAT_VE_HOAN_TAT, CHUYEN_TAB, DANH_SACH_GHE } from
 
 
 
-export const layChiTietPhongVeAction =() =>{
+export const layChiTietPhongVeAction =(id) =>{
 
     return async (dispatch) => {
 
        
         try {
-            const result = await quanLyDatVeService.layChiTietPhongVe();
+            const result = await quanLyDatVeService.layChiTietPhongVe(id);
 
             console.log('result', result);
             if (result.data.statusCode === 200) {
@@ -68,26 +68,27 @@ export const layChiTietgheAction =() =>{
 
 }
 
-// export const datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
+
+export const datVeAction = () => {
 
 
-//     return async dispatch => {
-//         try {
-//                dispatch(displayLoadingAction)
+    return async dispatch => {
+        try {
+               dispatch(displayLoadingAction)
 
-//             const result = await quanLyDatVeService.datVe(thongTinDatVe);
-//             console.log(result.data.content);
-//             //đặt vé thành công gọi Api load  lại phòng vé
-//             await dispatch(layChiTietPhongVeAction(thongTinDatVe.maLichChieu))
-//             await dispatch ({type:DAT_VE_HOAN_TAT})
-//             dispatch(hideLoadingAction)
-//             dispatch({type:CHUYEN_TAB})
-//             alert("đặt vé  thành công!")
-//         } catch (error) {
-//             dispatch(hideLoadingAction)
+            const result = await quanLyDatVeService.datve();
+            console.log(result.data.content);
+            //đặt vé thành công gọi Api load  lại phòng vé
+            await dispatch(layChiTietPhongVeAction())
+            await dispatch ({type:DAT_VE_HOAN_TAT})
+            dispatch(hideLoadingAction)
+            dispatch({type:CHUYEN_TAB})
+            alert("đặt vé  thành công!")
+        } catch (error) {
+            dispatch(hideLoadingAction)
 
-//             console.log(error.response.data);
-//         }
-//     }
+            console.log(error.response.data);
+        }
+    }
 
-// }
+}

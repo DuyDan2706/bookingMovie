@@ -15,27 +15,41 @@ import Timer from './Timer';
 import { TOKEN, USER_LOGIN } from '../../util/settings/config';
 import { history } from '../../App';
 import { NavLink } from 'react-router-dom';
+import { layDanhSachPhimTrongRapAction, layThongTinChiTietPhim } from '../../redux/actions/QuanLyRapActions';
+import { layDanhSachPhimAction } from '../../redux/actions/QuanLyPhimActions';
 
 function Checkout(props) {
-
+    const filmDetail = useSelector(state => state.QuanLyPhimReducer);
+    const {heThongphimRapChieu} = useSelector(state => state.QuanLyRapReducer);
     const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer);
     //lấy thông tin đặt vé 
     const { chiTietPhongVe,danhsachve, danhSachGheDangDat,danhSachGheKhachDat } = useSelector(state => state.QuanLyDatVeReducer);
     console.log('dan ngu qua', chiTietPhongVe )
     console.log('danhSachGheDangDat', danhSachGheDangDat)
-    console.log({danhsachve})
+    console.log("danhsachve",danhsachve)
+    console.log("phim ne biet k",filmDetail)
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         // gọi hàm tạo ra 1 asyn  function
         const action = layChiTietgheAction(props.match.params.id)
 
         dispatch(action)
-        // dispatch(layChiTietPhongVeAction())
+      
+        dispatch(layChiTietPhongVeAction(props.match.params.id))
+        dispatch(layDanhSachPhimAction())
+        dispatch(layThongTinChiTietPhim())
     }, [])
     // bóc tách dữ liệu ra để 
   
-   // render ra ghế viết vòng lặp map  
+  // render ra ghế viết vòng lặp map  
+//   const renderve = ()=>{
+//     return  danhsachve?.map((ve,index)=>{
+//         return <button>{ve.startTime}</button>
+//     })
+//   }
+
+
     const renderSeats = () => {
         return chiTietPhongVe?.map((ghe, index) => {
     
@@ -90,13 +104,13 @@ function Checkout(props) {
     }
 
 
-
+  
     return (
-        
+         
         <div className=" min-h-screen mt-5" >
             <div className="grid grid-cols-12">
                 <div className="col-span-9">
-                <div className="col-span-4 text-center my-auto">
+                <div className="col-span-2 text-center my-auto">
           <div className="mt-2">
             <h3>Thời gian giữ vé</h3>
             <h1 className="text-red-600 font-black text-3xl mr-2">
@@ -161,7 +175,7 @@ function Checkout(props) {
 
                         </div>
                         <div className="text-center col-span-1">
-                            <p className="text-green-800 text-lg">{danhsachve?.date}-{danhsachve?.startTime} - {danhsachve?.endTime}
+                            <p className="text-green-800 text-lg">{danhsachve?.startTime}-{danhsachve?.startTime} - {danhsachve?.endTime}
                             </p>
                         </div>
 

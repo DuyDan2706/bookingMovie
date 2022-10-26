@@ -8,7 +8,7 @@ export class QuanLyDatVeService  extends baseService{
     }
 
     layChiTietPhongVe = () => { // mã lịch chiu lay tu url
-        return this.get(`api/Scheduling`)
+        return this.get(`api/Scheduling/`)
     }
     
    //viêt api đặt vé
@@ -28,12 +28,11 @@ export class QuanLyDatVeService  extends baseService{
     }
     //   datVe = (thongTinDatVe = new ThongTinDatVe()) => { 
     //     return this.post(`/api/QuanLyDatVe/DatVe`,thongTinDatVe);
-    // }
+    // 
+    datve = () => { 
+      return this.get(`http://cinemasystem.somee.com/api/Ticked`);
+  }
   
 }
-
-
-
-
 
 export const quanLyDatVeService = new QuanLyDatVeService();

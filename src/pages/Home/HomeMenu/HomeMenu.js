@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import { layDanhSachPhimTrongRapAction } from '../../../redux/actions/QuanLyRapActions';
 import { useSelector, useDispatch } from 'react-redux'
+import { layChiTietPhongVeAction } from '../../../redux/actions/QuanLyDatVeAction';
 const { TabPane } = Tabs;
 
 
@@ -16,9 +17,14 @@ export default function Demo ({heThongRapChieu}) {
     const dispatch = useDispatch();
     
     const handleClickOpen = (data) => {
-        dispatch(layDanhSachPhimTrongRapAction(1));
-      };
+        dispatch(layDanhSachPhimTrongRapAction());
+  
+        //  const xuatchieu =(data) => {
+        //     dispatch(layChiTietPhongVeAction())
+        //  }
 
+   
+ };
 
 
    let renderHeThongRap = () => {
@@ -27,7 +33,7 @@ export default function Demo ({heThongRapChieu}) {
             let { tabPosition } = state;
 
             return <TabPane onClick={() => handleClickOpen(heThongRap.id)} tab={ <div style={{ width: '300px', display: 'flex' }} >
-            <img src="https://s3img.vcdn.vn/123phim/2018/09/ddc-dong-da-15379624326697.jpg" width="50" /> <br />
+            <img src="https://www.cgv.vn/media/catalog/product/cache/1/thumbnail/190x260/2e2b8cd282892c71872b9e67d2cb5039/4/7/470x700_skytour.jpg" width="50" /> <br />
             <div className="text-left ml-2"  onChange={console.log("da bam1")}>
                 {heThongRap.name}
                {console.log("qua la ngu " , heThongphimRapChieu)}
